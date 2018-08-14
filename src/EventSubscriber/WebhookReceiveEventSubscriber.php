@@ -62,30 +62,25 @@ class WebhookReceiveEventSubscriber implements EventSubscriberInterface {
     // so we know that it is our webhook.
     $uri = \Drupal::request()->getRequestUri();
     if (strpos($uri, '/webhook/pingdom') === FALSE) {
-      // Not a jira webhook.
+      // Not a pingdom webhook.
       return;
     }
 
-    // Just log events for now.
-    \Drupal::logger('signage_pingdom')->info(
-      'Content: %string',
-      [
-        '%string' => \Drupal::request()->getContent(),
-      ]
-    );
+    if (!isset($payload['current_state'])) {
+      // Not the expected payload.
+      return;
+    }
 
+    // Build the source id that will be used by the term.
+    $status = strtolower($payload['current_state']);
+    $source = 'pingdom.status.' . $status;
 
-
-    //    // Build the source id that will be used by the term.
-//    $status = strtolower($payload['build']['status']);
-//    $source = 'jira.' . $status;
-//
-//    // Dispatch a jenkins successful CI event.
-//    $this->inputEvent->setSource($source);
-//    $vals = $payload;
-//    $this->payload->setValues($vals);
-//    $this->inputEvent->setPayload($this->payload);
-//    $this->dispatcher->dispatch('signage.input', $this->inputEvent);
+    // Dispatch a signage input event.
+    $this->inputEvent->setSource($source);
+    $vals = $payload;
+    $this->payload->setValues($vals);
+    $this->inputEvent->setPayload($this->payload);
+    $this->dispatcher->dispatch('signage.input', $this->inputEvent);
 
   }
 

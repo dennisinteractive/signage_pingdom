@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "check_id": 1991410,
+  "check_name": "Buy a Car status page",
+  "check_type": "HTTP",
+  "check_params": {
+    "basic_auth": false,
+    "check_certificate": false,
+    "encryption": false,
+    "full_url": "http://www.buyacar.co.uk/mybuyacar/signIn.jhtml",
+    "header": "User-Agent:Pingdom.com_bot_version_1.4_(http://www.pingdom.com/)",
+    "hostname": "www.buyacar.co.uk",
+    "ipv6": false,
+    "port": 80,
+    "responsetime_threshold": 30000,
+    "shouldcontain": "sitemap",
+    "url": "/mybuyacar/signIn.jhtml"
+  },
+  "tags": [],
+  "importance_level": "HIGH",
+  "previous_state": "UP",
+  "current_state": "DOWN",
+  "state_changed_timestamp": 1534227572,
+  "state_changed_utc_time": "2018-08-14T06:19:32",
+  "long_description": "HTTP Server Error 503 Service Unavailable",
+  "description": "HTTP Error 503",
+  "first_probe": {
+    "ip": "184.75.210.90",
+    "ipv6": "2606:6080:1001:4::448",
+    "location": "Toronto 4, Canada"
+  },
+  "second_probe": {
+    "ip": "172.241.112.86",
+    "ipv6": "2606:9880:f000:4:5::4047",
+    "location": "Dallas 2, TX"
+  }
+}
