@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * Create some initial Actions & Events.
+ */
+function signage_pingdom_update_8100() {
+
+  // Output events
+  $output_status_down_msg = \Drupal\taxonomy\Entity\Term::create([
+    'vid' => 'signage_output_events',
+    'name' => 'Pingdom Down Message',
+    'field_signage_output_event_type' => 2, // Hard code tid as cim can't find the term by name
+    'format' => 'signage_raw',
+    'field_signage_output' => '{
+        "title": "[check_name] is down (Incident #[check_id])",
+        "body": "[long_description]",
+        "notification_type": "error",
+        "timeout": "300000"
+       }',
+  ]);
+  $output_status_down_msg->save();
+
+  // Input events
+  $input_status_down = \Drupal\taxonomy\Entity\Term::create([
+    'vid' => 'signage_input_events',
+    'name' => 'Pingdom Down',
+    'field_signage_subscribe_name' => [
+      'value' => 'pingdom.status.down',
+    ],
+  ]);
+  $input_status_down->save();
+
+  // Actions
+  $action_msg = Drupal\node\Entity\Node::create([
+    'type' => 'signage_action',
+    'title'  => 'Pingdom Down',
+    'field_signage_on_input_event' => [
+      'target_id' => $input_status_down->id(),
+    ],
+    'field_signage_do_output_event' => [
+      'target_id' => $output_status_down_msg->id(),
+    ],
+  ]);
+  $action_msg->save();
+
+}
