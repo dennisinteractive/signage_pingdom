@@ -1,2 +1,2 @@
-# signage_pingdom
-Pingdom integration for the Signage module
+# Signage Pingdom
+Pingdom integration to the Signage module

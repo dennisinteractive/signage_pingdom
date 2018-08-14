@@ -1,0 +1,6 @@
+curl -X POST -H 'Content-type: application/json' \
+--data '{
+          "name": "Pingdom test",
+          "status": "unknown"
+        }' \
+ http://digitalsignage.vm8.didev.co.uk/webhook/pingdom

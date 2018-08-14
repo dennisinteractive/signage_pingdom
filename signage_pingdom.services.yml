@@ -1,0 +1,7 @@
+services:
+  signage_pingdom.webhooks.subscriber:
+    class: Drupal\signage_pingdom\EventSubscriber\WebhookReceiveEventSubscriber
+    arguments: ['@event_dispatcher', '@signage.event.payload', '@signage.event.input']
+    tags:
+      - { name: 'event_subscriber' }
+
